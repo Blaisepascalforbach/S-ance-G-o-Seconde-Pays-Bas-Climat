@@ -157,7 +157,7 @@
       font-weight:700;
       color:#2d4157;
     }
-    textarea, select{
+    textarea, select, input[type="text"]{
       width:100%;
       border:1px solid var(--line);
       border-radius:14px;
@@ -241,6 +241,61 @@
       border-radius:18px;
       border:1px dashed rgba(235,127,42,0.35);
       background:rgba(255,245,236,0.85);
+    }
+    .assistant-log{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:14px;
+      max-height:380px;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .assistant-msg{
+      padding:12px 14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .assistant-msg strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      color:#2d4157;
+    }
+    .assistant-msg p{
+      margin:0;
+      white-space:pre-wrap;
+    }
+    .assistant-msg.user{
+      background:rgba(14,156,195,0.08);
+      border-color:rgba(14,156,195,0.20);
+    }
+    .assistant-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+    .assistant-actions button{
+      border:1px solid var(--line);
+    }
+    .assistant-config{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:18px;
+      border:1px dashed rgba(14,156,195,0.28);
+      background:rgba(248,251,255,0.95);
+    }
+    .assistant-config summary{
+      cursor:pointer;
+      font-weight:800;
+      color:#2d4157;
+    }
+    .assistant-config p{
+      margin:10px 0 0;
     }
   </style>
 </head>
@@ -454,6 +509,60 @@
           </p>
           <div class="helper" id="saveState">Aucune réponse enregistrée pour l’instant.</div>
         </article>
+
+        <article class="card">
+          <p class="kicker">Assistant IA</p>
+          <div class="card-title">
+            <h2>Comprendre sans réponse toute faite</h2>
+            <span id="assistantModeTag">Guidage local</span>
+          </div>
+          <p class="small">
+            Cet assistant aide l’élève à raisonner, reformuler et avancer pas à pas.
+            Il doit guider sans fournir de réponse finale prête à recopier.
+          </p>
+
+          <div class="question">
+            <label for="assistantSection">Je travaille sur</label>
+            <select id="assistantSection">
+              <option value="documents">Les documents</option>
+              <option value="ex1">L’exercice 1</option>
+              <option value="video">La vidéo</option>
+              <option value="synthese">La synthèse</option>
+            </select>
+          </div>
+
+          <div class="assistant-actions">
+            <button class="ghost" type="button" data-assistant-shortcut="indice">J’ai besoin d’un indice</button>
+            <button class="ghost" type="button" data-assistant-shortcut="reformulation">Aide-moi à reformuler</button>
+            <button class="ghost" type="button" data-assistant-shortcut="blocage">Je suis bloqué</button>
+          </div>
+
+          <div class="assistant-log" id="assistantLog"></div>
+
+          <div class="question">
+            <label for="assistantInput">Ma question ou mon brouillon</label>
+            <textarea id="assistantInput" placeholder="Ex. : Je ne comprends pas pourquoi ce territoire est si vulnérable..."></textarea>
+          </div>
+
+          <div class="pill-row" style="margin-top:14px">
+            <button class="primary" id="assistantSendBtn" type="button">Demander un accompagnement</button>
+            <button class="ghost" id="assistantClearBtn" type="button">Effacer l’échange</button>
+          </div>
+
+          <div class="helper" id="assistantStatus">
+            Aucun serveur IA n’est encore configuré ici. Le guidage local reste disponible.
+          </div>
+
+          <details class="assistant-config">
+            <summary>Connexion de l’assistant</summary>
+            <label for="assistantEndpoint" style="margin-top:12px">Endpoint IA sécurisé</label>
+            <input id="assistantEndpoint" type="text" placeholder="https://votre-serveur/api/tutor" />
+            <p class="small">
+              Sur GitHub Pages, le mode IA a besoin d’un backend HTTPS compatible avec <code>/api/tutor</code>.
+              Sans cela, l’assistant bascule automatiquement vers un guidage local.
+            </p>
+          </details>
+        </article>
       </aside>
     </div>
   </main>
@@ -462,6 +571,7 @@
     "use strict";
 
     const STORAGE_KEY = "geo_seconde_github_lite_v1";
+    const DEFAULT_DRIVING_QUESTION = "Comment les Pays-Bas s’adaptent-ils aux effets du changement climatique ?";
     const glossary = {
       alea: "Aléa : événement naturel potentiellement dangereux, comme une tempête ou une inondation.",
       vulnerabilite: "Vulnérabilité : fragilité d’un territoire ou d’une population face à un aléa.",
@@ -485,6 +595,56 @@
       }
     };
 
+    const sectionPrompts = {
+      documents: {
+        label: "Les documents",
+        step: 1,
+        support: [
+          "Document 1 : territoire densément peuplé, basses altitudes, zones sous le niveau de la mer, protections.",
+          "Document 2 : digues, canaux, bassins de décharge, activités humaines et gestion du risque."
+        ].join(" "),
+        fallback: {
+          novice: "Commence par relever une information sur le milieu naturel, puis une information sur les protections.",
+          intermediaire: "Relie une caractéristique du territoire à une forme d’aménagement.",
+          expert: "Essaie d’expliquer comment la maîtrise technique du territoire réduit la vulnérabilité sans l’effacer."
+        },
+        question: "Quelle information montre le mieux que le territoire est vulnérable ?"
+      },
+      ex1: {
+        label: "L’exercice 1",
+        step: 2,
+        support: "Exercice 1 : remettre dans l’ordre un raisonnement géographique. Progression attendue : territoire bas -> aléas -> aggravation par le changement climatique.",
+        fallback: {
+          novice: "Cherche d’abord la phrase qui présente le territoire, puis celle qui évoque le risque.",
+          intermediaire: "Demande-toi quelle phrase peut servir de point de départ à l’explication.",
+          expert: "Vérifie que ton ordre suit bien une logique d’explication et non une simple liste."
+        },
+        question: "Quelle phrase décrit d’abord le territoire, avant même le risque ?"
+      },
+      video: {
+        label: "La vidéo",
+        step: 2,
+        support: "Vidéo : relever des stratégies d’adaptation, expliquer leur fonction et identifier une limite malgré les aménagements.",
+        fallback: {
+          novice: "Note d’abord le nom de deux aménagements, puis écris à quoi chacun sert.",
+          intermediaire: "Relie chaque stratégie à sa fonction : protéger, drainer, stocker ou anticiper.",
+          expert: "Essaie de distinguer les solutions techniques immédiates et les logiques plus globales d’adaptation."
+        },
+        question: "Quel aménagement ou quelle stratégie as-tu repéré en premier ?"
+      },
+      synthese: {
+        label: "La synthèse",
+        step: 3,
+        support: "Synthèse attendue : vulnérabilité du territoire, risques, adaptations mises en place et limites qui subsistent.",
+        fallback: {
+          novice: "Construis ta réponse en quatre étapes très simples : territoire, risque, adaptation, limite.",
+          intermediaire: "Commence par une idée générale, puis ajoute deux exemples précis avant de conclure.",
+          expert: "Essaie d’articuler les notions d’aléa, de vulnérabilité et de risque dans une réponse fluide."
+        },
+        question: "Quelle idée principale veux-tu défendre dès la première phrase ?"
+      }
+    };
+
     const state = {
       level: "intermediaire",
       docAnswer: "",
@@ -494,8 +654,22 @@
       video1: "",
       video2: "",
       video3: "",
-      synthesis: ""
+      synthesis: "",
+      assistantSection: "documents",
+      assistantInput: "",
+      assistantEndpoint: "",
+      assistantHistory: []
     };
+
+    function defaultAssistantEndpoint() {
+      const params = new URLSearchParams(window.location.search);
+      const fromQuery = params.get("assistant_api");
+      if (fromQuery) return fromQuery;
+      if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") {
+        return window.location.origin + "/api/tutor";
+      }
+      return "";
+    }
 
     function loadState() {
       try {
@@ -503,12 +677,19 @@
         if (!raw) return;
         Object.assign(state, JSON.parse(raw));
       } catch (_) {}
+      if (!state.assistantEndpoint) {
+        state.assistantEndpoint = defaultAssistantEndpoint();
+      }
+      if (!Array.isArray(state.assistantHistory)) {
+        state.assistantHistory = [];
+      }
     }
 
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       document.getElementById("saveState").textContent = "Réponses enregistrées localement.";
       renderProgress();
+      renderAssistantMode();
     }
 
     function isFilled(value, min = 4) {
@@ -539,8 +720,147 @@
       document.getElementById("progressBar").style.width = pct + "%";
     }
 
+    function escapeHtml(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll("\"", "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderAssistantMode() {
+      const tag = document.getElementById("assistantModeTag");
+      if (state.assistantEndpoint) {
+        tag.textContent = "IA configurable";
+      } else {
+        tag.textContent = "Guidage local";
+      }
+    }
+
+    function renderAssistantLog() {
+      const log = document.getElementById("assistantLog");
+      const items = state.assistantHistory || [];
+      if (!items.length) {
+        log.innerHTML = `
+          <div class="assistant-msg">
+            <strong>Assistant</strong>
+            <p>Je peux t’aider à comprendre l’activité, à reformuler une idée ou à avancer étape par étape, sans donner la réponse finale à ta place.</p>
+          </div>
+        `;
+        return;
+      }
+      log.innerHTML = items.map((item) => `
+        <div class="assistant-msg ${item.role === "user" ? "user" : ""}">
+          <strong>${item.role === "user" ? "Élève" : "Assistant"}</strong>
+          <p>${escapeHtml(item.text)}</p>
+        </div>
+      `).join("");
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function buildSectionContext() {
+      const section = sectionPrompts[state.assistantSection] || sectionPrompts.documents;
+      const pieces = [
+        "Question directrice : " + DEFAULT_DRIVING_QUESTION,
+        "Partie de l’activité : " + section.label,
+        "Niveau d’accompagnement : " + (levelTexts[state.level]?.tag || "Intermédiaire"),
+        "Rappel pédagogique : " + section.support
+      ];
+
+      if (state.assistantSection === "documents" && state.docAnswer.trim()) {
+        pieces.push("Brouillon actuel de l’élève : " + state.docAnswer.trim());
+      }
+      if (state.assistantSection === "ex1") {
+        pieces.push("Choix actuels de l’élève : " + [state.order1, state.order2, state.order3].filter(Boolean).join(" / "));
+      }
+      if (state.assistantSection === "video") {
+        const videoDraft = [state.video1, state.video2, state.video3].filter((item) => item.trim()).join(" ");
+        if (videoDraft) pieces.push("Réponses actuelles de l’élève : " + videoDraft);
+      }
+      if (state.assistantSection === "synthese" && state.synthesis.trim()) {
+        pieces.push("Synthèse actuelle de l’élève : " + state.synthesis.trim());
+      }
+      return pieces.join("\n");
+    }
+
+    function buildFallbackReply() {
+      const section = sectionPrompts[state.assistantSection] || sectionPrompts.documents;
+      const levelKey = state.level in section.fallback ? state.level : "intermediaire";
+      return [
+        section.fallback[levelKey],
+        section.question,
+        "Essaie d’écrire une réponse courte à cette question avant de poursuivre."
+      ].join(" ");
+    }
+
+    async function requestAssistant(message) {
+      const trimmed = String(message || "").trim();
+      if (!trimmed) return;
+
+      state.assistantHistory.push({ role: "user", text: trimmed });
+      if (state.assistantHistory.length > 10) {
+        state.assistantHistory = state.assistantHistory.slice(-10);
+      }
+      renderAssistantLog();
+      saveState();
+
+      const status = document.getElementById("assistantStatus");
+      const button = document.getElementById("assistantSendBtn");
+      button.disabled = true;
+      status.dataset.locked = "1";
+
+      let reply = "";
+      let usedFallback = false;
+
+      if (state.assistantEndpoint) {
+        try {
+          const response = await fetch(state.assistantEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              studentInput: trimmed + "\n\nImportant : accompagne-moi sans me donner la réponse finale, pose-moi plutôt une question ou donne-moi un indice court.",
+              supportText: buildSectionContext(),
+              lang: "fr-FR",
+              step: sectionPrompts[state.assistantSection]?.step || 1,
+              history: state.assistantHistory.slice(-7, -1).map((item) => ({ role: item.role, text: item.text }))
+            })
+          });
+
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.message) {
+            throw new Error(data.message || "assistant_unavailable");
+          }
+          reply = data.message;
+          status.textContent = "Assistant IA utilisé avec succès.";
+        } catch (_) {
+          usedFallback = true;
+        }
+      } else {
+        usedFallback = true;
+      }
+
+      if (usedFallback) {
+        reply = buildFallbackReply();
+        status.textContent = state.assistantEndpoint
+          ? "Le serveur IA n’a pas répondu. Le guidage local a pris le relais."
+          : "Guidage local utilisé. Ajoute un endpoint HTTPS pour activer un vrai assistant IA.";
+      }
+
+      state.assistantHistory.push({ role: "assistant", text: reply });
+      if (state.assistantHistory.length > 10) {
+        state.assistantHistory = state.assistantHistory.slice(-10);
+      }
+      renderAssistantLog();
+      saveState();
+
+      button.disabled = false;
+      delete status.dataset.locked;
+      renderAssistantMode();
+    }
+
     function bindInputs() {
-      const ids = ["docAnswer", "order1", "order2", "order3", "video1", "video2", "video3", "synthesis"];
+      const ids = ["docAnswer", "order1", "order2", "order3", "video1", "video2", "video3", "synthesis", "assistantInput"];
       ids.forEach((id) => {
         const node = document.getElementById(id);
         node.value = state[id] || "";
@@ -552,6 +872,23 @@
           state[id] = node.value;
           saveState();
         });
+      });
+
+      const assistantSection = document.getElementById("assistantSection");
+      assistantSection.value = state.assistantSection || "documents";
+      assistantSection.addEventListener("change", () => {
+        state.assistantSection = assistantSection.value;
+        saveState();
+      });
+
+      const assistantEndpoint = document.getElementById("assistantEndpoint");
+      assistantEndpoint.value = state.assistantEndpoint || defaultAssistantEndpoint();
+      assistantEndpoint.addEventListener("input", () => {
+        state.assistantEndpoint = assistantEndpoint.value.trim();
+        document.getElementById("assistantStatus").textContent = state.assistantEndpoint
+          ? "Un endpoint IA est renseigné. En cas d’échec, le guidage local prendra le relais."
+          : "Aucun serveur IA n’est encore configuré ici. Le guidage local reste disponible.";
+        saveState();
       });
 
       document.querySelectorAll("[data-level]").forEach((button) => {
@@ -574,12 +911,45 @@
           ? "Bonne réponse : on part du territoire bas, puis du risque, puis de son aggravation par le changement climatique."
           : "Ce n’est pas encore le bon ordre. Repars de la logique territoire -> risque -> aggravation.";
       });
+
+      document.getElementById("assistantSendBtn").addEventListener("click", async () => {
+        const input = document.getElementById("assistantInput");
+        const text = input.value.trim();
+        if (!text) return;
+        state.assistantInput = "";
+        input.value = "";
+        saveState();
+        await requestAssistant(text);
+      });
+
+      document.querySelectorAll("[data-assistant-shortcut]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const shortcut = button.getAttribute("data-assistant-shortcut");
+          const prompts = {
+            indice: "Donne-moi un indice pour avancer sur cette partie.",
+            reformulation: "Aide-moi à reformuler mon idée sans écrire la réponse à ma place.",
+            blocage: "Je suis bloqué. Pose-moi une question simple pour me remettre sur la bonne piste."
+          };
+          await requestAssistant(prompts[shortcut] || "Aide-moi à avancer.");
+        });
+      });
+
+      document.getElementById("assistantClearBtn").addEventListener("click", () => {
+        state.assistantHistory = [];
+        renderAssistantLog();
+        saveState();
+      });
     }
 
     loadState();
+    if (!state.assistantEndpoint) {
+      state.assistantEndpoint = defaultAssistantEndpoint();
+    }
     bindInputs();
     renderLevel();
     renderProgress();
+    renderAssistantMode();
+    renderAssistantLog();
   </script>
 </body>
 </html>
