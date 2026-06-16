@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Séance Géo Seconde — Pays-Bas & Climat</title>
+  <meta name="description" content="Version légère et autonome de la séance de géographie sur les Pays-Bas face au changement climatique." />
+  <style>
+    :root{
+      --bg:#f4f8fb;
+      --paper:#ffffff;
+      --ink:#102033;
+      --muted:#54657b;
+      --line:#d8e4ef;
+      --accent:#0e9cc3;
+      --accent2:#eb7f2a;
+      --ok:#177b46;
+      --shadow:0 18px 40px rgba(16,32,51,0.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 420px at 0% 0%, rgba(14,156,195,0.16), transparent 55%),
+        radial-gradient(800px 420px at 100% 0%, rgba(235,127,42,0.14), transparent 52%),
+        linear-gradient(180deg, #eef6fb, var(--bg) 55%);
+    }
+    a{color:inherit}
+    .page{
+      max-width:1180px;
+      margin:0 auto;
+      padding:24px 18px 42px;
+    }
+    .hero,.card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      padding:28px;
+      margin-bottom:18px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(14,156,195,0.10);
+      color:var(--accent);
+      font-weight:800;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    h1,h2,h3{margin:0}
+    h1{
+      margin-top:14px;
+      font-size:clamp(2rem,4vw,3.4rem);
+      line-height:1.02;
+    }
+    .lead{
+      margin:16px 0 0;
+      max-width:780px;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:1.05rem;
+    }
+    .hero-pills,.pill-row,.levels,.glossary,.checklist{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .hero-pills{margin-top:20px}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:13px;
+      font-weight:800;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:minmax(0, 1.2fr) minmax(300px, .8fr);
+      gap:18px;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+    }
+    .stack{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .card{
+      padding:20px;
+    }
+    .kicker{
+      margin:0 0 8px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+    .card-title{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .card-title span{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      font-size:12px;
+      font-weight:800;
+      color:var(--muted);
+    }
+    p,li{
+      line-height:1.6;
+      color:var(--muted);
+    }
+    ul{
+      margin:0;
+      padding-left:18px;
+    }
+    .doc-box{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,1), rgba(248,251,255,1));
+    }
+    .doc-box + .doc-box{margin-top:12px}
+    .doc-box h3{
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+    .question{
+      margin-top:14px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    label{
+      display:block;
+      margin:0 0 8px;
+      font-weight:700;
+      color:#2d4157;
+    }
+    textarea, select{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:11px 12px;
+      font:inherit;
+      background:#fff;
+    }
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+    button{
+      border:0;
+      border-radius:999px;
+      padding:11px 14px;
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .primary{
+      background:linear-gradient(135deg, var(--accent), #33b4d4);
+      color:#fff;
+    }
+    .ghost{
+      background:#fff;
+      color:var(--ink);
+      border:1px solid var(--line);
+    }
+    .levels button.active{
+      background:linear-gradient(135deg, var(--accent2), #f3a15d);
+      color:#fff;
+    }
+    .helper,.status{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(14,156,195,0.18);
+      background:rgba(14,156,195,0.06);
+      color:var(--muted);
+    }
+    .video{
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#000;
+      margin-top:14px;
+    }
+    .video iframe{
+      width:100%;
+      min-height:360px;
+      border:0;
+      display:block;
+    }
+    .progress{
+      position:sticky;
+      top:18px;
+    }
+    @media (max-width: 980px){
+      .progress{position:static}
+    }
+    .bar{
+      height:10px;
+      margin:12px 0;
+      border-radius:999px;
+      overflow:hidden;
+      background:#edf2f7;
+      border:1px solid var(--line);
+    }
+    .bar span{
+      display:block;
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .small{
+      font-size:13px;
+    }
+    .note{
+      margin-top:16px;
+      padding:14px;
+      border-radius:18px;
+      border:1px dashed rgba(235,127,42,0.35);
+      background:rgba(255,245,236,0.85);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Version GitHub légère</div>
+      <h1>Les Pays-Bas face au changement climatique</h1>
+      <p class="lead">
+        Cette version autonome reprend l’essentiel de la séance de Géographie de Seconde.
+        Elle conserve le parcours guidé, les aides de rédaction, la vidéo et les activités
+        de synthèse, dans un format plus simple à publier sur GitHub Pages.
+      </p>
+      <div class="hero-pills">
+        <span class="pill">Étude de cas</span>
+        <span class="pill">Seconde</span>
+        <span class="pill">Géographie</span>
+        <span class="pill">Activité interactive</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="stack">
+        <article class="card">
+          <p class="kicker">Question directrice</p>
+          <div class="card-title">
+            <h2>Comment les Pays-Bas s’adaptent-ils aux effets du changement climatique ?</h2>
+            <span>Parcours guidé</span>
+          </div>
+          <p>
+            Les Pays-Bas sont un territoire très vulnérable car une grande partie du pays
+            se situe à basse altitude, parfois sous le niveau de la mer. Cette fragilité est
+            accentuée par les risques d’inondation, les tempêtes et la montée du niveau marin.
+          </p>
+          <div class="pill-row" style="margin-top:14px">
+            <span class="pill">Observer</span>
+            <span class="pill">Comprendre</span>
+            <span class="pill">Expliquer</span>
+            <span class="pill">Synthétiser</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Documents</p>
+          <div class="card-title">
+            <h2>Lecture didactisée des supports</h2>
+            <span>Sans média lourd</span>
+          </div>
+
+          <div class="doc-box">
+            <h3>Document 1 — Carte et vulnérabilité du territoire</h3>
+            <p>
+              Le document met en évidence un territoire densément peuplé, en partie situé sous
+              le niveau de la mer, donc particulièrement exposé au risque d’inondation.
+              Les aménagements montrent que l’adaptation repose sur une forte maîtrise technique du territoire.
+            </p>
+          </div>
+
+          <div class="doc-box">
+            <h3>Document 2 — Paysage aménagé</h3>
+            <p>
+              Le paysage de polder permet d’identifier plusieurs éléments de gestion du risque :
+              digues, canaux, bassins de décharge, voies d’accès et espaces habités ou cultivés.
+              On voit que l’adaptation associe protection, drainage et organisation des activités humaines.
+            </p>
+          </div>
+
+          <div class="question">
+            <label for="docAnswer">Réponse guidée</label>
+            <textarea id="docAnswer" placeholder="Explique en quelques lignes pourquoi les Pays-Bas sont vulnérables et comment les habitants adaptent leur territoire."></textarea>
+          </div>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Exercice 1</p>
+          <div class="card-title">
+            <h2>Remettre un raisonnement en ordre</h2>
+            <span>Validation</span>
+          </div>
+          <p class="small">Choisis l’ordre le plus logique pour construire une explication géographique.</p>
+
+          <div class="question">
+            <label for="order1">Phrase 1</label>
+            <select id="order1">
+              <option value="">Choisir</option>
+              <option value="b">Une très grande partie du pays se situe sous le niveau de la mer.</option>
+              <option value="a">Les Pays-Bas sont soumis à de puissants aléas climatiques.</option>
+              <option value="c">Le changement climatique accentue encore le risque d’inondation.</option>
+            </select>
+          </div>
+          <div class="question">
+            <label for="order2">Phrase 2</label>
+            <select id="order2">
+              <option value="">Choisir</option>
+              <option value="b">Une très grande partie du pays se situe sous le niveau de la mer.</option>
+              <option value="a">Les Pays-Bas sont soumis à de puissants aléas climatiques.</option>
+              <option value="c">Le changement climatique accentue encore le risque d’inondation.</option>
+            </select>
+          </div>
+          <div class="question">
+            <label for="order3">Phrase 3</label>
+            <select id="order3">
+              <option value="">Choisir</option>
+              <option value="b">Une très grande partie du pays se situe sous le niveau de la mer.</option>
+              <option value="a">Les Pays-Bas sont soumis à de puissants aléas climatiques.</option>
+              <option value="c">Le changement climatique accentue encore le risque d’inondation.</option>
+            </select>
+          </div>
+          <div class="pill-row" style="margin-top:14px">
+            <button class="primary" id="orderBtn" type="button">Valider</button>
+          </div>
+          <div class="status" id="orderFeedback">Indice : cherche la progression territoire -> risque -> aggravation.</div>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Vidéo</p>
+          <div class="card-title">
+            <h2>Observer des stratégies d’adaptation</h2>
+            <span>Ressource complémentaire</span>
+          </div>
+          <p>
+            Visionne la vidéo puis réponds aux questions. Tu peux relever des protections,
+            des ouvrages de drainage, des espaces de stockage de l’eau ou d’autres formes d’anticipation.
+          </p>
+          <div class="video">
+            <iframe
+              src="https://www.youtube.com/embed/zkiAVKzgOaU?si=ZFvKn9eI5Nd6I65n"
+              title="Vidéo sur l’adaptation des Pays-Bas"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+
+          <div class="question">
+            <label for="video1">1. Cite deux stratégies pour réduire le risque d’inondation.</label>
+            <textarea id="video1"></textarea>
+          </div>
+          <div class="question">
+            <label for="video2">2. Explique comment ces aménagements réduisent la vulnérabilité.</label>
+            <textarea id="video2"></textarea>
+          </div>
+          <div class="question">
+            <label for="video3">3. Quelle limite peut subsister malgré ces adaptations ?</label>
+            <textarea id="video3"></textarea>
+          </div>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Synthèse</p>
+          <div class="card-title">
+            <h2>Rédiger la réponse finale</h2>
+            <span>Restitution</span>
+          </div>
+          <p>
+            Rédige une courte synthèse organisée. Tu peux suivre le plan suivant :
+            vulnérabilité du territoire, risques, adaptations, limites.
+          </p>
+          <div class="checklist" style="margin:14px 0">
+            <span class="pill">J’emploie le mot « vulnérabilité »</span>
+            <span class="pill">Je cite au moins deux adaptations</span>
+            <span class="pill">Je conclus par une limite</span>
+          </div>
+          <label for="synthesis">Ma synthèse</label>
+          <textarea id="synthesis" placeholder="Les Pays-Bas sont vulnérables car... Pour faire face à ce risque, ... Cependant, ..."></textarea>
+          <div class="note">
+            Cette version légère est pensée pour GitHub. La version locale complète conserve les documents illustrés et les médias intégrés.
+          </div>
+        </article>
+      </section>
+
+      <aside class="stack">
+        <article class="card progress">
+          <p class="kicker">Accompagnement</p>
+          <div class="card-title">
+            <h2>Niveau d’aide</h2>
+            <span id="levelTag">Intermédiaire</span>
+          </div>
+          <div class="levels">
+            <button class="ghost active" type="button" data-level="intermediaire">Intermédiaire</button>
+            <button class="ghost" type="button" data-level="novice">Novice</button>
+            <button class="ghost" type="button" data-level="expert">Expert</button>
+          </div>
+          <div class="helper" id="levelHelp">
+            Relève les informations essentielles, puis mets-les en relation pour construire une réponse organisée.
+          </div>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Lexique actif</p>
+          <div class="glossary">
+            <button class="ghost" type="button" data-word="alea">Aléa</button>
+            <button class="ghost" type="button" data-word="vulnerabilite">Vulnérabilité</button>
+            <button class="ghost" type="button" data-word="risque">Risque</button>
+            <button class="ghost" type="button" data-word="polder">Polder</button>
+            <button class="ghost" type="button" data-word="digue">Digue</button>
+          </div>
+          <div class="helper" id="glossaryOut">
+            Clique sur un mot pour afficher sa définition.
+          </div>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Progression</p>
+          <div class="card-title">
+            <h2>Suivi rapide</h2>
+            <span id="progressText">0%</span>
+          </div>
+          <div class="bar"><span id="progressBar"></span></div>
+          <p class="small">
+            Les réponses sont enregistrées automatiquement dans ce navigateur grâce au stockage local.
+          </p>
+          <div class="helper" id="saveState">Aucune réponse enregistrée pour l’instant.</div>
+        </article>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY = "geo_seconde_github_lite_v1";
+    const glossary = {
+      alea: "Aléa : événement naturel potentiellement dangereux, comme une tempête ou une inondation.",
+      vulnerabilite: "Vulnérabilité : fragilité d’un territoire ou d’une population face à un aléa.",
+      risque: "Risque : rencontre entre un aléa, des enjeux humains et une certaine vulnérabilité.",
+      polder: "Polder : terre gagnée sur l’eau et protégée par des digues.",
+      digue: "Digue : ouvrage de protection contre la mer ou contre une crue."
+    };
+
+    const levelTexts = {
+      novice: {
+        tag: "Novice",
+        help: "Commence par relever des mots-clés simples, puis transforme-les en phrases courtes."
+      },
+      intermediaire: {
+        tag: "Intermédiaire",
+        help: "Relève les informations essentielles, puis mets-les en relation pour construire une réponse organisée."
+      },
+      expert: {
+        tag: "Expert",
+        help: "Mobilise explicitement les notions d’aléa, de vulnérabilité et de risque dans tes réponses."
+      }
+    };
+
+    const state = {
+      level: "intermediaire",
+      docAnswer: "",
+      order1: "",
+      order2: "",
+      order3: "",
+      video1: "",
+      video2: "",
+      video3: "",
+      synthesis: ""
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        Object.assign(state, JSON.parse(raw));
+      } catch (_) {}
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      document.getElementById("saveState").textContent = "Réponses enregistrées localement.";
+      renderProgress();
+    }
+
+    function isFilled(value, min = 4) {
+      return String(value || "").trim().length >= min;
+    }
+
+    function renderLevel() {
+      const current = levelTexts[state.level] || levelTexts.intermediaire;
+      document.getElementById("levelTag").textContent = current.tag;
+      document.getElementById("levelHelp").textContent = current.help;
+      document.querySelectorAll("[data-level]").forEach((button) => {
+        button.classList.toggle("active", button.getAttribute("data-level") === state.level);
+      });
+    }
+
+    function renderProgress() {
+      const tasks = [
+        isFilled(state.docAnswer, 20),
+        !!state.order1 && !!state.order2 && !!state.order3,
+        isFilled(state.video1, 6),
+        isFilled(state.video2, 12),
+        isFilled(state.video3, 6),
+        isFilled(state.synthesis, 40)
+      ];
+      const done = tasks.filter(Boolean).length;
+      const pct = Math.round((done / tasks.length) * 100);
+      document.getElementById("progressText").textContent = pct + "%";
+      document.getElementById("progressBar").style.width = pct + "%";
+    }
+
+    function bindInputs() {
+      const ids = ["docAnswer", "order1", "order2", "order3", "video1", "video2", "video3", "synthesis"];
+      ids.forEach((id) => {
+        const node = document.getElementById(id);
+        node.value = state[id] || "";
+        node.addEventListener("input", () => {
+          state[id] = node.value;
+          saveState();
+        });
+        node.addEventListener("change", () => {
+          state[id] = node.value;
+          saveState();
+        });
+      });
+
+      document.querySelectorAll("[data-level]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.level = button.getAttribute("data-level");
+          renderLevel();
+          saveState();
+        });
+      });
+
+      document.querySelectorAll("[data-word]").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.getElementById("glossaryOut").textContent = glossary[button.getAttribute("data-word")] || "";
+        });
+      });
+
+      document.getElementById("orderBtn").addEventListener("click", () => {
+        const ok = state.order1 === "b" && state.order2 === "a" && state.order3 === "c";
+        document.getElementById("orderFeedback").textContent = ok
+          ? "Bonne réponse : on part du territoire bas, puis du risque, puis de son aggravation par le changement climatique."
+          : "Ce n’est pas encore le bon ordre. Repars de la logique territoire -> risque -> aggravation.";
+      });
+    }
+
+    loadState();
+    bindInputs();
+    renderLevel();
+    renderProgress();
+  </script>
+</body>
+</html>
