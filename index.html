@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Séance Géo Seconde — Pays-Bas & Climat</title>
-  <meta name="description" content="Version légère et autonome de la séance de géographie sur les Pays-Bas face au changement climatique." />
+  <meta name="description" content="Version GitHub Pages légère de la séance sur les Pays-Bas face au changement climatique." />
   <style>
     :root{
       --bg:#f4f8fb;
@@ -15,6 +15,7 @@
       --accent:#0e9cc3;
       --accent2:#eb7f2a;
       --ok:#177b46;
+      --warn:#a85812;
       --shadow:0 18px 40px rgba(16,32,51,0.08);
       --radius:22px;
     }
@@ -29,286 +30,74 @@
         linear-gradient(180deg, #eef6fb, var(--bg) 55%);
     }
     a{color:inherit}
-    .page{
-      max-width:1180px;
-      margin:0 auto;
-      padding:24px 18px 42px;
-    }
-    .hero,.card{
-      background:var(--paper);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
-    .hero{
-      padding:28px;
-      margin-bottom:18px;
-    }
-    .eyebrow{
-      display:inline-flex;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(14,156,195,0.10);
-      color:var(--accent);
-      font-weight:800;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
+    .page{max-width:1180px;margin:0 auto;padding:24px 18px 42px}
+    .hero,.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero{padding:28px;margin-bottom:18px}
+    .eyebrow{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(14,156,195,0.10);color:var(--accent);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
     h1,h2,h3{margin:0}
-    h1{
-      margin-top:14px;
-      font-size:clamp(2rem,4vw,3.4rem);
-      line-height:1.02;
-    }
-    .lead{
-      margin:16px 0 0;
-      max-width:780px;
-      color:var(--muted);
-      line-height:1.65;
-      font-size:1.05rem;
-    }
-    .hero-pills,.pill-row,.levels,.glossary,.checklist{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
+    h1{margin-top:14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02}
+    .lead{margin:16px 0 0;max-width:780px;color:var(--muted);line-height:1.65;font-size:1.05rem}
+    .hero-pills,.pill-row,.levels,.glossary,.checklist,.assistant-actions{display:flex;flex-wrap:wrap;gap:10px}
     .hero-pills{margin-top:20px}
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      font-size:13px;
-      font-weight:800;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:minmax(0, 1.2fr) minmax(300px, .8fr);
-      gap:18px;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-    }
-    .stack{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-    .card{
-      padding:20px;
-    }
-    .kicker{
-      margin:0 0 8px;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.05em;
-      text-transform:uppercase;
-      color:var(--accent);
-    }
-    .card-title{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
-    }
-    .card-title span{
-      display:inline-flex;
-      align-items:center;
-      padding:7px 11px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      font-size:12px;
-      font-weight:800;
-      color:var(--muted);
-    }
-    p,li{
-      line-height:1.6;
-      color:var(--muted);
-    }
-    ul{
-      margin:0;
-      padding-left:18px;
-    }
-    .doc-box{
-      padding:16px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,1), rgba(248,251,255,1));
-    }
+    .pill{display:inline-flex;align-items:center;padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:13px;font-weight:800}
+    .grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:18px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+    .stack{display:flex;flex-direction:column;gap:18px}
+    .card{padding:20px}
+    .kicker{margin:0 0 8px;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+    .card-title{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .card-title span{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:800;color:var(--muted)}
+    p,li{line-height:1.6;color:var(--muted)}
+    ul{margin:0;padding-left:18px}
+    .doc-box,.question,.helper,.status,.video-sequence-box,.assistant-config{border-radius:18px;border:1px solid var(--line);background:#fff}
+    .doc-box{padding:16px;background:linear-gradient(180deg,#fff,#f8fbff)}
     .doc-box + .doc-box{margin-top:12px}
-    .doc-box h3{
-      margin-bottom:8px;
-      font-size:1rem;
-    }
-    .question{
-      margin-top:14px;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:#fff;
-    }
-    label{
-      display:block;
-      margin:0 0 8px;
-      font-weight:700;
-      color:#2d4157;
-    }
-    textarea, select, input[type="text"]{
-      width:100%;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:11px 12px;
-      font:inherit;
-      background:#fff;
-    }
-    textarea{
-      min-height:110px;
-      resize:vertical;
-    }
-    button{
-      border:0;
-      border-radius:999px;
-      padding:11px 14px;
-      font:inherit;
-      font-weight:800;
-      cursor:pointer;
-    }
-    .primary{
-      background:linear-gradient(135deg, var(--accent), #33b4d4);
-      color:#fff;
-    }
-    .ghost{
-      background:#fff;
-      color:var(--ink);
-      border:1px solid var(--line);
-    }
-    .levels button.active{
-      background:linear-gradient(135deg, var(--accent2), #f3a15d);
-      color:#fff;
-    }
-    .helper,.status{
-      margin-top:12px;
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid rgba(14,156,195,0.18);
-      background:rgba(14,156,195,0.06);
-      color:var(--muted);
-    }
-    .video{
-      overflow:hidden;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:#000;
-      margin-top:14px;
-    }
-    .video iframe{
-      width:100%;
-      min-height:360px;
-      border:0;
-      display:block;
-    }
-    .progress{
-      position:sticky;
-      top:18px;
-    }
-    @media (max-width: 980px){
-      .progress{position:static}
-    }
-    .bar{
-      height:10px;
-      margin:12px 0;
-      border-radius:999px;
-      overflow:hidden;
-      background:#edf2f7;
-      border:1px solid var(--line);
-    }
-    .bar span{
-      display:block;
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, var(--accent), var(--accent2));
-    }
-    .small{
-      font-size:13px;
-    }
-    .note{
-      margin-top:16px;
-      padding:14px;
-      border-radius:18px;
-      border:1px dashed rgba(235,127,42,0.35);
-      background:rgba(255,245,236,0.85);
-    }
-    .assistant-log{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top:14px;
-      max-height:380px;
-      overflow:auto;
-      padding-right:4px;
-    }
-    .assistant-msg{
-      padding:12px 14px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:#fff;
-    }
-    .assistant-msg strong{
-      display:block;
-      margin-bottom:6px;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-      color:#2d4157;
-    }
-    .assistant-msg p{
-      margin:0;
-      white-space:pre-wrap;
-    }
-    .assistant-msg.user{
-      background:rgba(14,156,195,0.08);
-      border-color:rgba(14,156,195,0.20);
-    }
-    .assistant-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:14px;
-    }
-    .assistant-actions button{
-      border:1px solid var(--line);
-    }
-    .assistant-config{
-      margin-top:14px;
-      padding:12px 14px;
-      border-radius:18px;
-      border:1px dashed rgba(14,156,195,0.28);
-      background:rgba(248,251,255,0.95);
-    }
-    .assistant-config summary{
-      cursor:pointer;
-      font-weight:800;
-      color:#2d4157;
-    }
-    .assistant-config p{
-      margin:10px 0 0;
-    }
+    .doc-box h3{margin-bottom:8px;font-size:1rem}
+    .question{margin-top:14px;padding:14px}
+    label{display:block;margin:0 0 8px;font-weight:700;color:#2d4157}
+    textarea,select{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;font:inherit;background:#fff}
+    textarea{min-height:110px;resize:vertical}
+    button{border:0;border-radius:999px;padding:11px 14px;font:inherit;font-weight:800;cursor:pointer}
+    .primary{background:linear-gradient(135deg,var(--accent),#33b4d4);color:#fff}
+    .ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+    .levels button.active{background:linear-gradient(135deg,var(--accent2),#f3a15d);color:#fff}
+    .helper,.status{margin-top:12px;padding:12px 14px;border-color:rgba(14,156,195,0.18);background:rgba(14,156,195,0.06)}
+    .note{margin-top:16px;padding:14px;border-radius:18px;border:1px dashed rgba(235,127,42,0.35);background:rgba(255,245,236,0.85)}
+    .small{font-size:13px}
+    .video{overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#000;margin-top:14px}
+    .video iframe{width:100%;min-height:360px;border:0;display:block}
+    .video-sequence-box{margin-top:14px;padding:16px;background:linear-gradient(180deg,rgba(248,251,255,0.98),#fff)}
+    .video-sequence-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px}
+    .video-sequence-head p{margin:6px 0 0}
+    .video-sequence-status{min-height:20px;margin-top:10px;font-size:13px;color:var(--muted)}
+    .video-segments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+    @media (max-width:760px){.video-segments{grid-template-columns:1fr}}
+    .video-segment-btn{text-align:left;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff;color:var(--ink)}
+    .video-segment-btn.active{border-color:rgba(14,156,195,0.45);background:rgba(14,156,195,0.08)}
+    .video-segment-btn.done{border-color:rgba(23,123,70,0.30);background:rgba(23,123,70,0.08)}
+    .video-segment-btn strong{display:block;color:#16324d;margin-bottom:4px;font-size:14px}
+    .video-segment-btn span{display:block;font-size:12px;color:var(--muted);line-height:1.45}
+    .video-segment-panel{margin-top:14px;padding:14px;border-radius:18px;border:1px dashed rgba(14,156,195,0.28);background:#fff}
+    .video-segment-meta{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.04em}
+    .progress{position:sticky;top:18px}
+    @media (max-width:980px){.progress{position:static}}
+    .bar{height:10px;margin:12px 0;border-radius:999px;overflow:hidden;background:#edf2f7;border:1px solid var(--line)}
+    .bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .assistant-log{display:flex;flex-direction:column;gap:10px;margin-top:14px;max-height:380px;overflow:auto;padding-right:4px}
+    .assistant-msg{padding:12px 14px;border-radius:18px;border:1px solid var(--line);background:#fff}
+    .assistant-msg strong{display:block;margin-bottom:6px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#2d4157}
+    .assistant-msg p{margin:0;white-space:pre-wrap}
+    .assistant-msg.user{background:rgba(14,156,195,0.08);border-color:rgba(14,156,195,0.20)}
+    .assistant-config{margin-top:14px;padding:12px 14px;border-style:dashed;border-color:rgba(14,156,195,0.28);background:rgba(248,251,255,0.95)}
+    .assistant-config summary{cursor:pointer;font-weight:800;color:#2d4157}
   </style>
 </head>
 <body>
   <main class="page">
     <section class="hero">
-      <div class="eyebrow">Version GitHub légère</div>
+      <div class="eyebrow">Version GitHub Pages</div>
       <h1>Les Pays-Bas face au changement climatique</h1>
-      <p class="lead">
-        Cette version autonome reprend l’essentiel de la séance de Géographie de Seconde.
-        Elle conserve le parcours guidé, les aides de rédaction, la vidéo et les activités
-        de synthèse, dans un format plus simple à publier sur GitHub Pages.
-      </p>
+      <p class="lead">Cette version légère reprend l’essentiel de la séance de Géographie de Seconde. Elle conserve le parcours guidé, la vidéo séquencée et un tuteur de compréhension local, dans un format simple à publier sur GitHub Pages.</p>
       <div class="hero-pills">
         <span class="pill">Étude de cas</span>
         <span class="pill">Seconde</span>
@@ -325,11 +114,7 @@
             <h2>Comment les Pays-Bas s’adaptent-ils aux effets du changement climatique ?</h2>
             <span>Parcours guidé</span>
           </div>
-          <p>
-            Les Pays-Bas sont un territoire très vulnérable car une grande partie du pays
-            se situe à basse altitude, parfois sous le niveau de la mer. Cette fragilité est
-            accentuée par les risques d’inondation, les tempêtes et la montée du niveau marin.
-          </p>
+          <p>Les Pays-Bas sont un territoire très vulnérable car une grande partie du pays se situe à basse altitude, parfois sous le niveau de la mer. Cette fragilité est accentuée par les risques d’inondation, les tempêtes et la montée du niveau marin.</p>
           <div class="pill-row" style="margin-top:14px">
             <span class="pill">Observer</span>
             <span class="pill">Comprendre</span>
@@ -344,25 +129,14 @@
             <h2>Lecture didactisée des supports</h2>
             <span>Sans média lourd</span>
           </div>
-
           <div class="doc-box">
             <h3>Document 1 — Carte et vulnérabilité du territoire</h3>
-            <p>
-              Le document met en évidence un territoire densément peuplé, en partie situé sous
-              le niveau de la mer, donc particulièrement exposé au risque d’inondation.
-              Les aménagements montrent que l’adaptation repose sur une forte maîtrise technique du territoire.
-            </p>
+            <p>Le document met en évidence un territoire densément peuplé, en partie situé sous le niveau de la mer, donc particulièrement exposé au risque d’inondation. Les aménagements montrent que l’adaptation repose sur une forte maîtrise technique du territoire.</p>
           </div>
-
           <div class="doc-box">
             <h3>Document 2 — Paysage aménagé</h3>
-            <p>
-              Le paysage de polder permet d’identifier plusieurs éléments de gestion du risque :
-              digues, canaux, bassins de décharge, voies d’accès et espaces habités ou cultivés.
-              On voit que l’adaptation associe protection, drainage et organisation des activités humaines.
-            </p>
+            <p>Le paysage de polder permet d’identifier plusieurs éléments de gestion du risque : digues, canaux, bassins de décharge, voies d’accès et espaces habités ou cultivés. On voit que l’adaptation associe protection, drainage et organisation des activités humaines.</p>
           </div>
-
           <div class="question">
             <label for="docAnswer">Réponse guidée</label>
             <textarea id="docAnswer" placeholder="Explique en quelques lignes pourquoi les Pays-Bas sont vulnérables et comment les habitants adaptent leur territoire."></textarea>
@@ -376,7 +150,6 @@
             <span>Validation</span>
           </div>
           <p class="small">Choisis l’ordre le plus logique pour construire une explication géographique.</p>
-
           <div class="question">
             <label for="order1">Phrase 1</label>
             <select id="order1">
@@ -414,21 +187,24 @@
           <p class="kicker">Vidéo</p>
           <div class="card-title">
             <h2>Observer des stratégies d’adaptation</h2>
-            <span>Ressource complémentaire</span>
+            <span>Vidéo didactisée</span>
           </div>
-          <p>
-            Visionne la vidéo puis réponds aux questions. Tu peux relever des protections,
-            des ouvrages de drainage, des espaces de stockage de l’eau ou d’autres formes d’anticipation.
-          </p>
+          <p>Commence par une vision d’ensemble, puis reviens sur la vidéo par courtes séquences. À chaque étape, relève seulement l’idée essentielle avant de passer à la suivante.</p>
           <div class="video">
-            <iframe
-              src="https://www.youtube.com/embed/zkiAVKzgOaU?si=ZFvKn9eI5Nd6I65n"
-              title="Vidéo sur l’adaptation des Pays-Bas"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen></iframe>
+            <iframe id="videoPlayer" src="https://www.youtube.com/embed/zkiAVKzgOaU?rel=0&modestbranding=1&playsinline=1" title="Vidéo sur l’adaptation des Pays-Bas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
-
+          <div class="video-sequence-box">
+            <div class="video-sequence-head">
+              <div>
+                <h3>Parcours guidé de la vidéo</h3>
+                <p>Vision libre d’abord, puis travail par séquences pour repérer le problème, les protections, la gestion de l’eau et les limites.</p>
+              </div>
+              <button class="primary" id="videoPlayFullBtn" type="button">Voir la vidéo entière</button>
+            </div>
+            <div class="video-sequence-status" id="videoSequenceStatus">0/4 repères validés. Commence par une vision globale, puis choisis une séquence.</div>
+            <div class="video-segments" id="videoSegments"></div>
+            <div class="video-segment-panel" id="videoSegmentPanel"></div>
+          </div>
           <div class="question">
             <label for="video1">1. Cite deux stratégies pour réduire le risque d’inondation.</label>
             <textarea id="video1"></textarea>
@@ -449,10 +225,7 @@
             <h2>Rédiger la réponse finale</h2>
             <span>Restitution</span>
           </div>
-          <p>
-            Rédige une courte synthèse organisée. Tu peux suivre le plan suivant :
-            vulnérabilité du territoire, risques, adaptations, limites.
-          </p>
+          <p>Rédige une courte synthèse organisée. Tu peux suivre le plan suivant : vulnérabilité du territoire, risques, adaptations, limites.</p>
           <div class="checklist" style="margin:14px 0">
             <span class="pill">J’emploie le mot « vulnérabilité »</span>
             <span class="pill">Je cite au moins deux adaptations</span>
@@ -460,9 +233,7 @@
           </div>
           <label for="synthesis">Ma synthèse</label>
           <textarea id="synthesis" placeholder="Les Pays-Bas sont vulnérables car... Pour faire face à ce risque, ... Cependant, ..."></textarea>
-          <div class="note">
-            Cette version légère est pensée pour GitHub. La version locale complète conserve les documents illustrés et les médias intégrés.
-          </div>
+          <div class="note">Cette version GitHub privilégie un format autonome. Le tuteur local reste disponible sans IA générative ni service externe.</div>
         </article>
       </section>
 
@@ -478,9 +249,7 @@
             <button class="ghost" type="button" data-level="novice">Novice</button>
             <button class="ghost" type="button" data-level="expert">Expert</button>
           </div>
-          <div class="helper" id="levelHelp">
-            Relève les informations essentielles, puis mets-les en relation pour construire une réponse organisée.
-          </div>
+          <div class="helper" id="levelHelp">Relève les informations essentielles, puis mets-les en relation pour construire une réponse organisée.</div>
         </article>
 
         <article class="card">
@@ -492,9 +261,7 @@
             <button class="ghost" type="button" data-word="polder">Polder</button>
             <button class="ghost" type="button" data-word="digue">Digue</button>
           </div>
-          <div class="helper" id="glossaryOut">
-            Clique sur un mot pour afficher sa définition.
-          </div>
+          <div class="helper" id="glossaryOut">Clique sur un mot pour afficher sa définition.</div>
         </article>
 
         <article class="card">
@@ -504,23 +271,17 @@
             <span id="progressText">0%</span>
           </div>
           <div class="bar"><span id="progressBar"></span></div>
-          <p class="small">
-            Les réponses sont enregistrées automatiquement dans ce navigateur grâce au stockage local.
-          </p>
+          <p class="small">Les réponses sont enregistrées automatiquement dans ce navigateur grâce au stockage local.</p>
           <div class="helper" id="saveState">Aucune réponse enregistrée pour l’instant.</div>
         </article>
 
         <article class="card">
-          <p class="kicker">Assistant IA</p>
+          <p class="kicker">Tuteur de compréhension</p>
           <div class="card-title">
             <h2>Comprendre sans réponse toute faite</h2>
-            <span id="assistantModeTag">Guidage local</span>
+            <span id="assistantModeTag">Guidage pédagogique</span>
           </div>
-          <p class="small">
-            Cet assistant aide l’élève à raisonner, reformuler et avancer pas à pas.
-            Il doit guider sans fournir de réponse finale prête à recopier.
-          </p>
-
+          <p class="small">Ce tuteur aide l’élève à raisonner, reformuler et avancer pas à pas. Il guide sans fournir de réponse finale prête à recopier.</p>
           <div class="question">
             <label for="assistantSection">Je travaille sur</label>
             <select id="assistantSection">
@@ -530,37 +291,25 @@
               <option value="synthese">La synthèse</option>
             </select>
           </div>
-
           <div class="assistant-actions">
             <button class="ghost" type="button" data-assistant-shortcut="indice">J’ai besoin d’un indice</button>
             <button class="ghost" type="button" data-assistant-shortcut="reformulation">Aide-moi à reformuler</button>
             <button class="ghost" type="button" data-assistant-shortcut="blocage">Je suis bloqué</button>
           </div>
-
           <div class="assistant-log" id="assistantLog"></div>
-
           <div class="question">
             <label for="assistantInput">Ma question ou mon brouillon</label>
             <textarea id="assistantInput" placeholder="Ex. : Je ne comprends pas pourquoi ce territoire est si vulnérable..."></textarea>
           </div>
-
           <div class="pill-row" style="margin-top:14px">
             <button class="primary" id="assistantSendBtn" type="button">Demander un accompagnement</button>
             <button class="ghost" id="assistantClearBtn" type="button">Effacer l’échange</button>
           </div>
-
-          <div class="helper" id="assistantStatus">
-            Aucun serveur IA n’est encore configuré ici. Le guidage local reste disponible.
-          </div>
-
+          <div class="helper" id="assistantStatus">Mode sans IA générative : le guidage pédagogique local est actif.</div>
           <details class="assistant-config">
-            <summary>Connexion de l’assistant</summary>
-            <label for="assistantEndpoint" style="margin-top:12px">Endpoint IA sécurisé</label>
-            <input id="assistantEndpoint" type="text" placeholder="https://votre-serveur/api/tutor" />
-            <p class="small">
-              Sur GitHub Pages, le mode IA a besoin d’un backend HTTPS compatible avec <code>/api/tutor</code>.
-              Sans cela, l’assistant bascule automatiquement vers un guidage local.
-            </p>
+            <summary>Comment fonctionne ce tuteur</summary>
+            <div class="helper small" id="assistantConfigStatus">Ce tuteur fonctionne entièrement dans la page. Il s’appuie sur des relances pédagogiques, des indices gradués, des reformulations et un guidage pas à pas selon la partie choisie.</div>
+            <p class="small">Il ne s’agit pas d’une IA générative active. L’objectif est d’accompagner l’élève dans sa compréhension, sans corrigé tout fait et sans dépendance à un service externe.</p>
           </details>
         </article>
       </aside>
@@ -570,8 +319,9 @@
   <script>
     "use strict";
 
-    const STORAGE_KEY = "geo_seconde_github_lite_v1";
-    const DEFAULT_DRIVING_QUESTION = "Comment les Pays-Bas s’adaptent-ils aux effets du changement climatique ?";
+    const STORAGE_KEY = "geo_seconde_github_safe_v2";
+    const DRIVING_QUESTION = "Comment les Pays-Bas s’adaptent-ils aux effets du changement climatique ?";
+
     const glossary = {
       alea: "Aléa : événement naturel potentiellement dangereux, comme une tempête ou une inondation.",
       vulnerabilite: "Vulnérabilité : fragilité d’un territoire ou d’une population face à un aléa.",
@@ -581,69 +331,102 @@
     };
 
     const levelTexts = {
-      novice: {
-        tag: "Novice",
-        help: "Commence par relever des mots-clés simples, puis transforme-les en phrases courtes."
-      },
-      intermediaire: {
-        tag: "Intermédiaire",
-        help: "Relève les informations essentielles, puis mets-les en relation pour construire une réponse organisée."
-      },
-      expert: {
-        tag: "Expert",
-        help: "Mobilise explicitement les notions d’aléa, de vulnérabilité et de risque dans tes réponses."
-      }
+      novice: { tag: "Novice", help: "Commence par relever des mots-clés simples, puis transforme-les en phrases courtes." },
+      intermediaire: { tag: "Intermédiaire", help: "Relève les informations essentielles, puis mets-les en relation pour construire une réponse organisée." },
+      expert: { tag: "Expert", help: "Mobilise explicitement les notions d’aléa, de vulnérabilité et de risque dans tes réponses." }
     };
 
     const sectionPrompts = {
       documents: {
         label: "Les documents",
-        step: 1,
-        support: [
-          "Document 1 : territoire densément peuplé, basses altitudes, zones sous le niveau de la mer, protections.",
-          "Document 2 : digues, canaux, bassins de décharge, activités humaines et gestion du risque."
-        ].join(" "),
+        support: "Document 1 : territoire densément peuplé, basses altitudes, zones sous le niveau de la mer, protections. Document 2 : digues, canaux, bassins et gestion du risque.",
+        clarify: "La question te demande deux choses : montrer pourquoi le territoire est fragile face à l’eau, puis montrer comment il est aménagé pour se protéger.",
+        hint: "Indice : cherche d’abord un élément qui montre que le pays est très bas ou proche de l’eau.",
+        stepByStep: ["Étape 1 : repère une information qui montre le danger.", "Étape 2 : repère un aménagement comme une digue, un canal ou un bassin.", "Étape 3 : relie les deux dans une phrase."],
+        restartQuestion: "Quelle information montre le plus clairement le risque d’inondation ?",
+        sentenceStarter: "Tu peux commencer par : « Les Pays-Bas sont vulnérables parce que... »",
+        recognition: {
+          vulnerability: { label: "la fragilité du territoire face à l’eau", keywords: ["niveau de la mer", "sous le niveau", "basse altitude", "inond", "mer", "eau", "vulnerab"] },
+          adaptation: { label: "les aménagements de protection", keywords: ["digue", "canal", "bassin", "polder", "drain", "protection"] },
+          link: { label: "le lien entre le risque et la protection", keywords: ["pour proteger", "pour limiter", "redu", "grace a", "afin de"] }
+        },
         fallback: {
           novice: "Commence par relever une information sur le milieu naturel, puis une information sur les protections.",
           intermediaire: "Relie une caractéristique du territoire à une forme d’aménagement.",
-          expert: "Essaie d’expliquer comment la maîtrise technique du territoire réduit la vulnérabilité sans l’effacer."
+          expert: "Explique comment la maîtrise technique du territoire réduit la vulnérabilité sans l’effacer."
         },
         question: "Quelle information montre le mieux que le territoire est vulnérable ?"
       },
       ex1: {
         label: "L’exercice 1",
-        step: 2,
-        support: "Exercice 1 : remettre dans l’ordre un raisonnement géographique. Progression attendue : territoire bas -> aléas -> aggravation par le changement climatique.",
-        fallback: {
-          novice: "Cherche d’abord la phrase qui présente le territoire, puis celle qui évoque le risque.",
-          intermediaire: "Demande-toi quelle phrase peut servir de point de départ à l’explication.",
-          expert: "Vérifie que ton ordre suit bien une logique d’explication et non une simple liste."
+        support: "Exercice 1 : remettre dans l’ordre un raisonnement géographique. Progression attendue : territoire bas -> aléas -> aggravation.",
+        clarify: "Il faut reconstruire une explication logique. On commence par le territoire, puis on parle du risque, puis de son aggravation.",
+        hint: "Indice : la bonne première phrase décrit le pays avant même de parler du changement climatique.",
+        stepByStep: ["Étape 1 : cherche la phrase qui décrit le territoire.", "Étape 2 : place ensuite la phrase qui parle des aléas.", "Étape 3 : termine par la phrase qui montre l’aggravation."],
+        restartQuestion: "Parmi les trois phrases, laquelle parle d’abord du territoire lui-même ?",
+        sentenceStarter: "Tu peux te dire : d’abord le lieu, ensuite le danger, enfin l’aggravation.",
+        recognition: {
+          terrain: { label: "le point de départ sur le territoire", keywords: ["territoire", "pays", "niveau de la mer", "sous le niveau"] },
+          risk: { label: "la phrase sur le risque ou les aléas", keywords: ["alea", "aléas", "inondation", "risque", "tempete"] },
+          aggravation: { label: "l’idée d’aggravation liée au changement climatique", keywords: ["changement climatique", "accentue", "aggrave", "montee"] }
         },
-        question: "Quelle phrase décrit d’abord le territoire, avant même le risque ?"
+        fallback: {
+          novice: "Commence par repérer la phrase qui décrit le territoire.",
+          intermediaire: "Vérifie si ton ordre suit bien la logique territoire -> risque -> aggravation.",
+          expert: "Cherche une progression explicative, pas seulement un enchaînement de phrases."
+        },
+        question: "Quelle phrase doit venir en premier pour poser le cadre du raisonnement ?"
       },
       video: {
         label: "La vidéo",
-        step: 2,
-        support: "Vidéo : relever des stratégies d’adaptation, expliquer leur fonction et identifier une limite malgré les aménagements.",
-        fallback: {
-          novice: "Note d’abord le nom de deux aménagements, puis écris à quoi chacun sert.",
-          intermediaire: "Relie chaque stratégie à sa fonction : protéger, drainer, stocker ou anticiper.",
-          expert: "Essaie de distinguer les solutions techniques immédiates et les logiques plus globales d’adaptation."
+        support: "Vidéo : vulnérabilité du territoire, protections, gestion de l’eau, limites de l’adaptation.",
+        clarify: "La vidéo doit t’aider à repérer un problème, des solutions, leur fonction et leurs limites.",
+        hint: "Indice : note d’abord un danger ou un aménagement précis avant de chercher une réponse complète.",
+        stepByStep: ["Étape 1 : note un danger ou une vulnérabilité.", "Étape 2 : note un aménagement ou une protection.", "Étape 3 : explique à quoi cela sert.", "Étape 4 : ajoute une limite."],
+        restartQuestion: "Quel élément précis de la vidéo montre le mieux l’adaptation du territoire ?",
+        sentenceStarter: "Tu peux commencer par : « La vidéo montre que les Pays-Bas... »",
+        recognition: {
+          vulnerability: { label: "la vulnérabilité du territoire", keywords: ["eau", "mer", "inond", "vulnerab", "bas"] },
+          adaptation: { label: "une adaptation ou un aménagement", keywords: ["digue", "barriere", "canal", "bassin", "protection", "pompe"] },
+          function: { label: "la fonction de cet aménagement", keywords: ["proteger", "limiter", "drainer", "stocker", "evacuer"] },
+          limit: { label: "une limite ou un risque qui subsiste", keywords: ["limite", "cout", "fragil", "demeure", "reste", "insuffisant"] }
         },
-        question: "Quel aménagement ou quelle stratégie as-tu repéré en premier ?"
+        fallback: {
+          novice: "Choisis une seule séquence et note une idée essentielle.",
+          intermediaire: "Relie un aménagement à sa fonction, puis ajoute une limite.",
+          expert: "Transforme les repères vidéo en une explication organisée et nuancée."
+        },
+        question: "Quel aménagement vu dans la vidéo répond le plus clairement au risque d’inondation ?"
       },
       synthese: {
         label: "La synthèse",
-        step: 3,
-        support: "Synthèse attendue : vulnérabilité du territoire, risques, adaptations mises en place et limites qui subsistent.",
-        fallback: {
-          novice: "Construis ta réponse en quatre étapes très simples : territoire, risque, adaptation, limite.",
-          intermediaire: "Commence par une idée générale, puis ajoute deux exemples précis avant de conclure.",
-          expert: "Essaie d’articuler les notions d’aléa, de vulnérabilité et de risque dans une réponse fluide."
+        support: "Synthèse finale : vulnérabilité, risques, adaptations, limites.",
+        clarify: "La synthèse doit expliquer le problème, montrer les réponses apportées et terminer par une limite.",
+        hint: "Indice : suis le plan vulnérabilité -> risque -> adaptation -> limite.",
+        stepByStep: ["Étape 1 : formule la vulnérabilité du territoire.", "Étape 2 : ajoute le risque principal.", "Étape 3 : cite une ou deux adaptations précises.", "Étape 4 : termine par une limite."],
+        restartQuestion: "Quelle idée dois-tu formuler en premier pour lancer ton paragraphe ?",
+        sentenceStarter: "Tu peux commencer par : « Les Pays-Bas sont vulnérables car... »",
+        recognition: {
+          vulnerability: { label: "la vulnérabilité du territoire", keywords: ["vulnerab", "bas", "niveau de la mer", "fragile"] },
+          risk: { label: "le risque principal", keywords: ["inond", "tempete", "submersion", "alea"] },
+          adaptation: { label: "les adaptations mises en place", keywords: ["digue", "canal", "bassin", "protection", "amenagement"] },
+          limit: { label: "une limite ou une fragilité persistante", keywords: ["limite", "reste", "cout", "fragil", "demeure"] }
         },
-        question: "Quelle idée principale veux-tu défendre dès la première phrase ?"
+        fallback: {
+          novice: "Rédige une phrase par idée avant de chercher une vraie synthèse.",
+          intermediaire: "Organise clairement les idées avant de développer.",
+          expert: "Veille à articuler cause, réponse et limite dans le même paragraphe."
+        },
+        question: "Quelle idée centrale doit apparaître dès le début de ta synthèse ?"
       }
     };
+
+    const videoChapters = [
+      { id: "constat", title: "Séquence 1 — Constater la vulnérabilité", start: 0, focus: "Repère ce qui montre que le territoire est exposé à l’eau.", prompt: "Quel élément montre que ce territoire est vulnérable ?", hint: "Pense à la proximité de la mer, à la basse altitude ou au risque d’inondation." },
+      { id: "protections", title: "Séquence 2 — Identifier les protections", start: 62, focus: "Observe les ouvrages ou protections qui limitent le risque.", prompt: "Quels aménagements ou protections vois-tu ?", hint: "Pense aux digues, barrages, protections côtières ou autres ouvrages." },
+      { id: "gestion", title: "Séquence 3 — Comprendre la gestion de l’eau", start: 102, focus: "Comprends comment l’eau est stockée, évacuée ou canalisée.", prompt: "Comment ces aménagements réduisent-ils concrètement la vulnérabilité ?", hint: "Tu peux utiliser un verbe simple : protéger, stocker, drainer, évacuer ou ralentir." },
+      { id: "limites", title: "Séquence 4 — Nuancer avec les limites", start: 166, focus: "Repère ce qui montre que le risque n’a pas totalement disparu.", prompt: "Quelle limite, quel coût ou quelle fragilité peut encore subsister ?", hint: "Cherche l’idée que l’on réduit le risque sans l’effacer complètement." }
+    ];
 
     const state = {
       level: "intermediaire",
@@ -655,69 +438,28 @@
       video2: "",
       video3: "",
       synthesis: "",
-      assistantSection: "documents",
       assistantInput: "",
-      assistantEndpoint: "",
-      assistantHistory: []
+      assistantSection: "documents",
+      assistantHistory: [],
+      videoActiveSegment: "constat",
+      videoSegmentNotes: {},
+      videoSegmentValidated: {}
     };
-
-    function defaultAssistantEndpoint() {
-      const params = new URLSearchParams(window.location.search);
-      const fromQuery = params.get("assistant_api");
-      if (fromQuery) return fromQuery;
-      if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") {
-        return window.location.origin + "/api/tutor";
-      }
-      return "";
-    }
-
-    function loadState() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        Object.assign(state, JSON.parse(raw));
-      } catch (_) {}
-      if (!state.assistantEndpoint) {
-        state.assistantEndpoint = defaultAssistantEndpoint();
-      }
-      if (!Array.isArray(state.assistantHistory)) {
-        state.assistantHistory = [];
-      }
-    }
 
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      document.getElementById("saveState").textContent = "Réponses enregistrées localement.";
       renderProgress();
-      renderAssistantMode();
+      document.getElementById("saveState").textContent = "Réponses enregistrées dans ce navigateur.";
     }
 
-    function isFilled(value, min = 4) {
-      return String(value || "").trim().length >= min;
-    }
-
-    function renderLevel() {
-      const current = levelTexts[state.level] || levelTexts.intermediaire;
-      document.getElementById("levelTag").textContent = current.tag;
-      document.getElementById("levelHelp").textContent = current.help;
-      document.querySelectorAll("[data-level]").forEach((button) => {
-        button.classList.toggle("active", button.getAttribute("data-level") === state.level);
-      });
-    }
-
-    function renderProgress() {
-      const tasks = [
-        isFilled(state.docAnswer, 20),
-        !!state.order1 && !!state.order2 && !!state.order3,
-        isFilled(state.video1, 6),
-        isFilled(state.video2, 12),
-        isFilled(state.video3, 6),
-        isFilled(state.synthesis, 40)
-      ];
-      const done = tasks.filter(Boolean).length;
-      const pct = Math.round((done / tasks.length) * 100);
-      document.getElementById("progressText").textContent = pct + "%";
-      document.getElementById("progressBar").style.width = pct + "%";
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(raw);
+        Object.assign(state, parsed || {});
+        if (!Array.isArray(state.assistantHistory)) state.assistantHistory = [];
+      } catch (_) {}
     }
 
     function escapeHtml(value) {
@@ -725,137 +467,298 @@
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
-        .replaceAll("\"", "&quot;")
+        .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
     }
 
+    function renderLevel() {
+      const cfg = levelTexts[state.level] || levelTexts.intermediaire;
+      document.getElementById("levelTag").textContent = cfg.tag;
+      document.getElementById("levelHelp").textContent = cfg.help;
+      document.querySelectorAll("[data-level]").forEach((button) => {
+        button.classList.toggle("active", button.getAttribute("data-level") === state.level);
+      });
+    }
+
+    function getCompletedVideoSequenceCount() {
+      return videoChapters.filter((chapter) => !!state.videoSegmentValidated[chapter.id]).length;
+    }
+
+    function renderProgress() {
+      const checks = [
+        state.docAnswer.trim(),
+        state.order1 && state.order2 && state.order3,
+        state.video1.trim(),
+        state.video2.trim(),
+        state.video3.trim(),
+        state.synthesis.trim()
+      ];
+      const done = checks.filter(Boolean).length;
+      const total = checks.length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById("progressText").textContent = pct + "%";
+      document.getElementById("progressBar").style.width = pct + "%";
+    }
+
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60).toString().padStart(2, "0");
+      const s = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return m + ":" + s;
+    }
+
+    function getVideoChapterById(id) {
+      return videoChapters.find((chapter) => chapter.id === id) || videoChapters[0];
+    }
+
+    function setVideoSequenceStatus(message) {
+      const base = getCompletedVideoSequenceCount() + "/" + videoChapters.length + " repères validés.";
+      document.getElementById("videoSequenceStatus").textContent = message ? base + " " + message : base;
+    }
+
+    function buildVideoSrc(start) {
+      const url = new URL("https://www.youtube.com/embed/zkiAVKzgOaU");
+      url.searchParams.set("rel", "0");
+      url.searchParams.set("modestbranding", "1");
+      url.searchParams.set("playsinline", "1");
+      if (typeof start === "number" && start > 0) url.searchParams.set("start", String(start));
+      return url.toString();
+    }
+
+    function playFullVideo() {
+      document.getElementById("videoPlayer").src = buildVideoSrc();
+      setVideoSequenceStatus("Vision globale relancée. Cherche d’abord l’idée générale avant de détailler.");
+    }
+
+    function renderVideoSegments() {
+      const wrap = document.getElementById("videoSegments");
+      wrap.innerHTML = videoChapters.map((chapter) => {
+        const classes = ["video-segment-btn"];
+        if (state.videoActiveSegment === chapter.id) classes.push("active");
+        if (state.videoSegmentValidated[chapter.id]) classes.push("done");
+        return `<button class="${classes.join(" ")}" type="button" data-video-segment="${chapter.id}"><strong>${escapeHtml(chapter.title)}</strong><span>${formatTime(chapter.start)} · ${escapeHtml(chapter.focus)}</span></button>`;
+      }).join("");
+      wrap.querySelectorAll("[data-video-segment]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.videoActiveSegment = button.getAttribute("data-video-segment") || "constat";
+          saveState();
+          renderVideoSegments();
+          renderVideoSegmentPanel();
+          setVideoSequenceStatus("Séquence sélectionnée. Regarde l’extrait puis note seulement l’idée essentielle.");
+        });
+      });
+    }
+
+    function renderVideoSegmentPanel() {
+      const chapter = getVideoChapterById(state.videoActiveSegment);
+      const note = String(state.videoSegmentNotes[chapter.id] || "");
+      const validated = !!state.videoSegmentValidated[chapter.id];
+      const panel = document.getElementById("videoSegmentPanel");
+      panel.innerHTML = `
+        <div class="video-segment-meta">${formatTime(chapter.start)} · ${validated ? "Repère validé" : "Repère à construire"}</div>
+        <h3>${escapeHtml(chapter.title)}</h3>
+        <p><strong>Ce que je cherche :</strong> ${escapeHtml(chapter.focus)}</p>
+        <p><strong>Question-guide :</strong> ${escapeHtml(chapter.prompt)}</p>
+        <p><strong>Indice :</strong> ${escapeHtml(chapter.hint)}</p>
+        <div class="question" style="margin-top:12px">
+          <label for="videoSegmentNote">Mon repère pour cette séquence</label>
+          <textarea id="videoSegmentNote" placeholder="Note l’idée essentielle en une ou deux phrases courtes.">${escapeHtml(note)}</textarea>
+        </div>
+        <div class="pill-row" style="margin-top:12px">
+          <button class="primary" id="videoSegmentPlayBtn" type="button">Lire cet extrait</button>
+          <button class="ghost" id="videoSegmentValidateBtn" type="button">Valider ce repère</button>
+        </div>
+        <div class="helper" id="videoSegmentFeedback">${validated ? "Ce repère est déjà validé. Tu peux l’améliorer ou passer à la séquence suivante." : "Ne note que l’essentiel : une idée, un aménagement ou une limite importante."}</div>
+      `;
+      document.getElementById("videoSegmentNote").addEventListener("input", (event) => {
+        state.videoSegmentNotes[chapter.id] = event.target.value;
+        saveState();
+      });
+      document.getElementById("videoSegmentPlayBtn").addEventListener("click", () => {
+        document.getElementById("videoPlayer").src = buildVideoSrc(chapter.start);
+        setVideoSequenceStatus(chapter.title + " en cours. Vise l’idée importante, pas tous les détails.");
+      });
+      document.getElementById("videoSegmentValidateBtn").addEventListener("click", () => {
+        const current = String(state.videoSegmentNotes[chapter.id] || "").trim();
+        const feedback = document.getElementById("videoSegmentFeedback");
+        if (current.length < 12) {
+          feedback.textContent = "Ajoute une note un peu plus précise avant de valider. Une idée utile tient souvent en une courte phrase.";
+          return;
+        }
+        state.videoSegmentValidated[chapter.id] = true;
+        saveState();
+        renderVideoSegments();
+        renderVideoSegmentPanel();
+        setVideoSequenceStatus("Repère validé. Tu peux poursuivre avec une autre séquence ou répondre aux questions.");
+      });
+    }
+
     function renderAssistantMode() {
-      const tag = document.getElementById("assistantModeTag");
-      if (state.assistantEndpoint) {
-        tag.textContent = "IA configurable";
-      } else {
-        tag.textContent = "Guidage local";
+      document.getElementById("assistantModeTag").textContent = "Guidage pédagogique";
+    }
+
+    function setAssistantStatus(message) {
+      document.getElementById("assistantStatus").textContent = message;
+    }
+
+    function setAssistantConfigStatus(message) {
+      document.getElementById("assistantConfigStatus").textContent = message;
+    }
+
+    function normalizeAssistantText(value) {
+      return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function detectAssistantIntent(message) {
+      const text = normalizeAssistantText(message);
+      if (!text) return "generic";
+      if (text.includes("etape par etape") || text.includes("pas a pas")) return "step";
+      if (text.includes("reformul")) return "rephrase";
+      if (text.includes("indice") || text.includes("piste")) return "hint";
+      if (text.includes("bloqu") || text.includes("perdu") || text.includes("j'y arrive pas")) return "blocked";
+      if (text.includes("comprends pas") || text.includes("comprendre") || text.includes("question")) return "clarify";
+      return "generic";
+    }
+
+    function recentUserIntentCount(intent) {
+      const recent = state.assistantHistory.filter((item) => item.role === "user").slice(-4);
+      return recent.filter((item) => detectAssistantIntent(item.text) === intent).length;
+    }
+
+    function currentDraftForSection() {
+      if (state.assistantSection === "documents") return state.docAnswer.trim();
+      if (state.assistantSection === "video") return [state.video1, state.video2, state.video3].filter((item) => item.trim()).join(" ").trim();
+      if (state.assistantSection === "synthese") return state.synthesis.trim();
+      return "";
+    }
+
+    function joinNatural(items) {
+      const clean = items.filter(Boolean);
+      if (!clean.length) return "";
+      if (clean.length === 1) return clean[0];
+      if (clean.length === 2) return clean[0] + " et " + clean[1];
+      return clean.slice(0, -1).join(", ") + " et " + clean[clean.length - 1];
+    }
+
+    function getSectionWorkText(userMessage) {
+      const parts = [currentDraftForSection(), userMessage];
+      if (state.assistantSection === "ex1") {
+        const orderLabels = [];
+        if (state.order1 === "b") orderLabels.push("territoire");
+        if (state.order2 === "a") orderLabels.push("risque");
+        if (state.order3 === "c") orderLabels.push("aggravation");
+        if (orderLabels.length) parts.push(orderLabels.join(" "));
       }
+      return normalizeAssistantText(parts.filter(Boolean).join(" "));
+    }
+
+    function hasKeyword(text, keywords) {
+      return keywords.some((keyword) => text.includes(normalizeAssistantText(keyword)));
+    }
+
+    function evaluateSectionProgress(userMessage) {
+      const section = sectionPrompts[state.assistantSection] || sectionPrompts.documents;
+      const recognition = section.recognition || {};
+      const text = getSectionWorkText(userMessage);
+      const matched = [];
+      const missing = [];
+      Object.entries(recognition).forEach(([key, data]) => {
+        if (hasKeyword(text, data.keywords || [])) matched.push({ key, label: data.label });
+        else missing.push({ key, label: data.label });
+      });
+      return { matched, missing };
+    }
+
+    function buildRecognitionPrefix(assessment) {
+      if (!assessment.matched.length) return "";
+      const labels = assessment.matched.map((item) => item.label);
+      if (labels.length === 1) return "Tu as déjà repéré " + labels[0] + ", c’est une bonne piste.";
+      return "Tu as déjà repéré " + joinNatural(labels) + ", c’est encourageant.";
+    }
+
+    function buildNextStep(assessment) {
+      const missingKey = assessment.missing[0] ? assessment.missing[0].key : "";
+      if (state.assistantSection === "documents") {
+        if (missingKey === "vulnerability") return "Ajoute maintenant un élément précis qui montre pourquoi ce territoire est menacé par l’eau.";
+        if (missingKey === "adaptation") return "Ajoute maintenant un aménagement précis, par exemple une digue, un canal ou un bassin.";
+        if (missingKey === "link") return "Explique maintenant en une phrase comment cet aménagement réduit le risque.";
+        return "Tu peux maintenant relier clairement la vulnérabilité du territoire et les protections mises en place.";
+      }
+      if (state.assistantSection === "ex1") {
+        if (missingKey === "terrain") return "Commence par identifier la phrase qui décrit le territoire avant de parler du risque.";
+        if (missingKey === "risk") return "Ajoute maintenant la phrase qui parle du risque ou des aléas.";
+        if (missingKey === "aggravation") return "Cherche enfin la phrase qui montre que le changement climatique accentue le problème.";
+        return "Tu peux maintenant vérifier si ton ordre suit bien : territoire, risque, aggravation.";
+      }
+      if (state.assistantSection === "video") {
+        if (missingKey === "vulnerability") return "Repars d’abord de ce qui rend le territoire exposé à l’eau.";
+        if (missingKey === "adaptation") return "Repère maintenant un aménagement précis vu dans la vidéo.";
+        if (missingKey === "function") return "Explique maintenant à quoi sert cet aménagement avec un verbe simple.";
+        if (missingKey === "limit") return "Ajoute enfin une limite ou un risque qui subsiste malgré ces protections.";
+        return "Tu peux maintenant transformer tes repères vidéo en deux ou trois phrases organisées.";
+      }
+      if (state.assistantSection === "synthese") {
+        if (missingKey === "vulnerability") return "Commence par formuler clairement pourquoi les Pays-Bas sont vulnérables.";
+        if (missingKey === "risk") return "Ajoute ensuite le risque principal.";
+        if (missingKey === "adaptation") return "Pense maintenant à citer une ou deux adaptations précises.";
+        if (missingKey === "limit") return "Termine par une limite ou une fragilité qui subsiste.";
+        return "Tu as les idées essentielles : organise-les maintenant dans un petit paragraphe.";
+      }
+      return "Ajoute maintenant une idée nouvelle pour faire progresser ta réponse.";
+    }
+
+    function buildFallbackReply(userMessage) {
+      const section = sectionPrompts[state.assistantSection] || sectionPrompts.documents;
+      const levelKey = state.level in section.fallback ? state.level : "intermediaire";
+      const intent = detectAssistantIntent(userMessage);
+      const repeatedIntent = recentUserIntentCount(intent) >= 2;
+      const draft = currentDraftForSection();
+      const assessment = evaluateSectionProgress(userMessage);
+      const recognitionPrefix = buildRecognitionPrefix(assessment);
+      const nextStep = buildNextStep(assessment);
+
+      if (intent === "clarify") {
+        if (repeatedIntent) return [recognitionPrefix || "On la reprend très simplement.", section.clarify, nextStep, "Réponds d’abord seulement à cette mini-question :", section.restartQuestion].filter(Boolean).join(" ");
+        return [recognitionPrefix, section.clarify, nextStep, section.restartQuestion].filter(Boolean).join(" ");
+      }
+      if (intent === "step") {
+        return [recognitionPrefix || "Tu peux avancer pas à pas.", "D’accord, on avance pas à pas.", section.stepByStep.join(" "), nextStep, "Fais seulement l’étape la plus simple pour l’instant."].filter(Boolean).join(" ");
+      }
+      if (intent === "hint") {
+        return [recognitionPrefix, section.hint, nextStep, section.question, "Réponds en une phrase très courte."].filter(Boolean).join(" ");
+      }
+      if (intent === "blocked") {
+        return [recognitionPrefix || "On débloque la situation avec une question plus simple.", nextStep, section.restartQuestion, "Ne cherche pas une réponse complète tout de suite."].filter(Boolean).join(" ");
+      }
+      if (intent === "rephrase") {
+        if (draft) return [recognitionPrefix, "Je peux t’aider à reformuler ton idée sans l’écrire à ta place.", section.sentenceStarter, nextStep, "Garde ton idée actuelle, puis réécris-la en une phrase plus claire."].filter(Boolean).join(" ");
+        return [recognitionPrefix, "Avant de reformuler, pose une idée simple.", section.sentenceStarter, nextStep, "Ajoute ensuite un exemple précis."].filter(Boolean).join(" ");
+      }
+      return [recognitionPrefix, section.fallback[levelKey], nextStep, section.restartQuestion || section.question, "Essaie d’écrire une réponse courte à cette question avant de poursuivre."].filter(Boolean).join(" ");
     }
 
     function renderAssistantLog() {
       const log = document.getElementById("assistantLog");
-      const items = state.assistantHistory || [];
-      if (!items.length) {
-        log.innerHTML = `
-          <div class="assistant-msg">
-            <strong>Assistant</strong>
-            <p>Je peux t’aider à comprendre l’activité, à reformuler une idée ou à avancer étape par étape, sans donner la réponse finale à ta place.</p>
-          </div>
-        `;
+      if (!state.assistantHistory.length) {
+        log.innerHTML = '<div class="assistant-msg"><strong>Tuteur</strong><p>Je peux t’aider à comprendre l’activité, à reformuler une idée ou à avancer étape par étape, sans donner la réponse finale à ta place.</p></div>';
         return;
       }
-      log.innerHTML = items.map((item) => `
-        <div class="assistant-msg ${item.role === "user" ? "user" : ""}">
-          <strong>${item.role === "user" ? "Élève" : "Assistant"}</strong>
-          <p>${escapeHtml(item.text)}</p>
-        </div>
-      `).join("");
+      log.innerHTML = state.assistantHistory.map((item) => `<div class="assistant-msg ${item.role === "user" ? "user" : ""}"><strong>${item.role === "user" ? "Élève" : "Tuteur"}</strong><p>${escapeHtml(item.text)}</p></div>`).join("");
       log.scrollTop = log.scrollHeight;
-    }
-
-    function buildSectionContext() {
-      const section = sectionPrompts[state.assistantSection] || sectionPrompts.documents;
-      const pieces = [
-        "Question directrice : " + DEFAULT_DRIVING_QUESTION,
-        "Partie de l’activité : " + section.label,
-        "Niveau d’accompagnement : " + (levelTexts[state.level]?.tag || "Intermédiaire"),
-        "Rappel pédagogique : " + section.support
-      ];
-
-      if (state.assistantSection === "documents" && state.docAnswer.trim()) {
-        pieces.push("Brouillon actuel de l’élève : " + state.docAnswer.trim());
-      }
-      if (state.assistantSection === "ex1") {
-        pieces.push("Choix actuels de l’élève : " + [state.order1, state.order2, state.order3].filter(Boolean).join(" / "));
-      }
-      if (state.assistantSection === "video") {
-        const videoDraft = [state.video1, state.video2, state.video3].filter((item) => item.trim()).join(" ");
-        if (videoDraft) pieces.push("Réponses actuelles de l’élève : " + videoDraft);
-      }
-      if (state.assistantSection === "synthese" && state.synthesis.trim()) {
-        pieces.push("Synthèse actuelle de l’élève : " + state.synthesis.trim());
-      }
-      return pieces.join("\n");
-    }
-
-    function buildFallbackReply() {
-      const section = sectionPrompts[state.assistantSection] || sectionPrompts.documents;
-      const levelKey = state.level in section.fallback ? state.level : "intermediaire";
-      return [
-        section.fallback[levelKey],
-        section.question,
-        "Essaie d’écrire une réponse courte à cette question avant de poursuivre."
-      ].join(" ");
     }
 
     async function requestAssistant(message) {
       const trimmed = String(message || "").trim();
       if (!trimmed) return;
-
       state.assistantHistory.push({ role: "user", text: trimmed });
-      if (state.assistantHistory.length > 10) {
-        state.assistantHistory = state.assistantHistory.slice(-10);
-      }
+      if (state.assistantHistory.length > 10) state.assistantHistory = state.assistantHistory.slice(-10);
       renderAssistantLog();
       saveState();
-
-      const status = document.getElementById("assistantStatus");
-      const button = document.getElementById("assistantSendBtn");
-      button.disabled = true;
-      status.dataset.locked = "1";
-
-      let reply = "";
-      let usedFallback = false;
-
-      if (state.assistantEndpoint) {
-        try {
-          const response = await fetch(state.assistantEndpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              studentInput: trimmed + "\n\nImportant : accompagne-moi sans me donner la réponse finale, pose-moi plutôt une question ou donne-moi un indice court.",
-              supportText: buildSectionContext(),
-              lang: "fr-FR",
-              step: sectionPrompts[state.assistantSection]?.step || 1,
-              history: state.assistantHistory.slice(-7, -1).map((item) => ({ role: item.role, text: item.text }))
-            })
-          });
-
-          const data = await response.json().catch(() => ({}));
-          if (!response.ok || !data.message) {
-            throw new Error(data.message || "assistant_unavailable");
-          }
-          reply = data.message;
-          status.textContent = "Assistant IA utilisé avec succès.";
-        } catch (_) {
-          usedFallback = true;
-        }
-      } else {
-        usedFallback = true;
-      }
-
-      if (usedFallback) {
-        reply = buildFallbackReply();
-        status.textContent = state.assistantEndpoint
-          ? "Le serveur IA n’a pas répondu. Le guidage local a pris le relais."
-          : "Guidage local utilisé. Ajoute un endpoint HTTPS pour activer un vrai assistant IA.";
-      }
-
+      const reply = buildFallbackReply(trimmed);
+      setAssistantStatus("Mode sans IA générative : le tuteur tient compte des idées déjà proposées et oriente l’élève vers la prochaine piste utile.");
       state.assistantHistory.push({ role: "assistant", text: reply });
-      if (state.assistantHistory.length > 10) {
-        state.assistantHistory = state.assistantHistory.slice(-10);
-      }
+      if (state.assistantHistory.length > 10) state.assistantHistory = state.assistantHistory.slice(-10);
       renderAssistantLog();
       saveState();
-
-      button.disabled = false;
-      delete status.dataset.locked;
       renderAssistantMode();
     }
 
@@ -864,53 +767,28 @@
       ids.forEach((id) => {
         const node = document.getElementById(id);
         node.value = state[id] || "";
-        node.addEventListener("input", () => {
-          state[id] = node.value;
-          saveState();
-        });
-        node.addEventListener("change", () => {
-          state[id] = node.value;
-          saveState();
-        });
+        node.addEventListener("input", () => { state[id] = node.value; saveState(); });
+        node.addEventListener("change", () => { state[id] = node.value; saveState(); });
       });
 
       const assistantSection = document.getElementById("assistantSection");
       assistantSection.value = state.assistantSection || "documents";
-      assistantSection.addEventListener("change", () => {
-        state.assistantSection = assistantSection.value;
-        saveState();
-      });
-
-      const assistantEndpoint = document.getElementById("assistantEndpoint");
-      assistantEndpoint.value = state.assistantEndpoint || defaultAssistantEndpoint();
-      assistantEndpoint.addEventListener("input", () => {
-        state.assistantEndpoint = assistantEndpoint.value.trim();
-        document.getElementById("assistantStatus").textContent = state.assistantEndpoint
-          ? "Un endpoint IA est renseigné. En cas d’échec, le guidage local prendra le relais."
-          : "Aucun serveur IA n’est encore configuré ici. Le guidage local reste disponible.";
-        saveState();
-      });
+      assistantSection.addEventListener("change", () => { state.assistantSection = assistantSection.value; saveState(); });
 
       document.querySelectorAll("[data-level]").forEach((button) => {
-        button.addEventListener("click", () => {
-          state.level = button.getAttribute("data-level");
-          renderLevel();
-          saveState();
-        });
+        button.addEventListener("click", () => { state.level = button.getAttribute("data-level"); renderLevel(); saveState(); });
       });
 
       document.querySelectorAll("[data-word]").forEach((button) => {
-        button.addEventListener("click", () => {
-          document.getElementById("glossaryOut").textContent = glossary[button.getAttribute("data-word")] || "";
-        });
+        button.addEventListener("click", () => { document.getElementById("glossaryOut").textContent = glossary[button.getAttribute("data-word")] || ""; });
       });
 
       document.getElementById("orderBtn").addEventListener("click", () => {
         const ok = state.order1 === "b" && state.order2 === "a" && state.order3 === "c";
-        document.getElementById("orderFeedback").textContent = ok
-          ? "Bonne réponse : on part du territoire bas, puis du risque, puis de son aggravation par le changement climatique."
-          : "Ce n’est pas encore le bon ordre. Repars de la logique territoire -> risque -> aggravation.";
+        document.getElementById("orderFeedback").textContent = ok ? "Bonne réponse : on part du territoire bas, puis du risque, puis de son aggravation par le changement climatique." : "Ce n’est pas encore le bon ordre. Repars de la logique territoire -> risque -> aggravation.";
       });
+
+      document.getElementById("videoPlayFullBtn").addEventListener("click", playFullVideo);
 
       document.getElementById("assistantSendBtn").addEventListener("click", async () => {
         const input = document.getElementById("assistantInput");
@@ -942,14 +820,16 @@
     }
 
     loadState();
-    if (!state.assistantEndpoint) {
-      state.assistantEndpoint = defaultAssistantEndpoint();
-    }
     bindInputs();
+    renderVideoSegments();
+    renderVideoSegmentPanel();
     renderLevel();
     renderProgress();
     renderAssistantMode();
     renderAssistantLog();
+    setAssistantStatus("Mode sans IA générative : le guidage pédagogique local est actif.");
+    setAssistantConfigStatus("Ce tuteur local propose des explications, des relances et des étapes de travail adaptées à la partie choisie.");
+    setVideoSequenceStatus(getCompletedVideoSequenceCount() ? "Les repères déjà validés sont conservés. Tu peux reprendre la séquence de ton choix." : "Commence par une vision globale, puis choisis une séquence.");
   </script>
 </body>
 </html>
